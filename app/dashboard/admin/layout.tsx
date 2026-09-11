@@ -13,6 +13,16 @@ const MENU = [
   { icon: '⚙️', label: '설정', href: null },
 ]
 
+/**
+ * 지금 보고 있는 화면이 이 메뉴에 속하는지 판단한다.
+ * 대시보드는 주소가 정확히 같을 때만, 나머지는 하위 화면(상세 등)까지 포함한다.
+ */
+function isActive(href: string | null, pathname: string): boolean {
+  if (!href) return false
+  if (href === '/dashboard/admin') return pathname === href
+  return pathname.startsWith(href)
+}
+
 export default function AdminLayout({
   children,
 }: {
@@ -50,7 +60,7 @@ export default function AdminLayout({
 
         <nav className="flex-1 space-y-1 p-3">
           {MENU.map((item) => {
-            const active = item.href === pathname
+            const active = isActive(item.href, pathname)
             const className = `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm no-underline transition ${
               active
                 ? 'glow-button bg-space-800 text-space-200'
@@ -106,7 +116,7 @@ export default function AdminLayout({
         {/* 좁은 화면용 가로 메뉴 */}
         <nav className="flex gap-2 overflow-x-auto border-b border-space-800 bg-void-950/70 px-4 py-3 md:hidden">
           {MENU.map((item) => {
-            const active = item.href === pathname
+            const active = isActive(item.href, pathname)
             const className = `whitespace-nowrap rounded-full border px-3 py-1.5 text-sm no-underline ${
               active
                 ? 'border-space-500 bg-space-600/30 text-white'

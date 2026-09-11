@@ -160,9 +160,12 @@ export default function WorkersPage() {
                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                       {/* 사람 정보 */}
                       <div className="min-w-0 md:w-60">
-                        <p className="truncate font-bold text-white">
-                          {worker.name}
-                        </p>
+                        <Link
+                          href={`/dashboard/admin/workers/${worker.id}`}
+                          className="block truncate font-bold text-white no-underline hover:text-space-200"
+                        >
+                          {worker.name} →
+                        </Link>
                         <p className="truncate text-sm text-gray-400">
                           {worker.nameLocal}
                         </p>
