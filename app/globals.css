@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-dark text-white;
+    /* 한글 폰트를 앞에 둔다 (윈도우: 맑은 고딕, 맥: 애플 SD 산돌고딕) */
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont,
+      'Apple SD Gothic Neo', 'Segoe UI', 'Malgun Gothic', 'Noto Sans KR',
+      Roboto, sans-serif;
+    /* 우주 배경: 위아래 보라 성운 + 짙은 남색 바탕 */
+    background-image:
+      radial-gradient(ellipse 80% 55% at 50% -10%, rgba(125, 57, 255, 0.3), transparent 70%),
+      radial-gradient(ellipse 65% 50% at 88% 108%, rgba(107, 29, 217, 0.24), transparent 70%),
+      linear-gradient(180deg, #0f0f1e 0%, #150f2b 50%, #0f0f1e 100%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 별 배경 - 좌표를 고정해 두어 서버와 브라우저가 똑같이 그린다 */
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+  }
+
+  body::before {
+    background-image:
+      radial-gradient(1px 1px at 8% 12%, rgba(255, 255, 255, 0.9), transparent),
+      radial-gradient(1px 1px at 23% 44%, rgba(255, 255, 255, 0.7), transparent),
+      radial-gradient(1px 1px at 37% 18%, rgba(255, 255, 255, 0.85), transparent),
+      radial-gradient(1px 1px at 52% 63%, rgba(255, 255, 255, 0.6), transparent),
+      radial-gradient(1px 1px at 68% 27%, rgba(255, 255, 255, 0.8), transparent),
+      radial-gradient(1px 1px at 81% 55%, rgba(255, 255, 255, 0.7), transparent),
+      radial-gradient(1px 1px at 94% 33%, rgba(255, 255, 255, 0.85), transparent),
+      radial-gradient(1px 1px at 15% 78%, rgba(255, 255, 255, 0.65), transparent),
+      radial-gradient(1px 1px at 43% 88%, rgba(255, 255, 255, 0.75), transparent),
+      radial-gradient(1px 1px at 73% 92%, rgba(255, 255, 255, 0.6), transparent),
+      radial-gradient(2px 2px at 29% 31%, rgba(199, 166, 255, 0.9), transparent),
+      radial-gradient(2px 2px at 61% 71%, rgba(199, 166, 255, 0.8), transparent),
+      radial-gradient(2px 2px at 88% 14%, rgba(255, 255, 255, 0.9), transparent),
+      radial-gradient(2px 2px at 6% 58%, rgba(199, 166, 255, 0.7), transparent);
+    animation: twinkle 7s ease-in-out infinite;
+  }
+
+  body::after {
+    background-image:
+      radial-gradient(1px 1px at 18% 25%, rgba(255, 255, 255, 0.5), transparent),
+      radial-gradient(1px 1px at 34% 71%, rgba(199, 166, 255, 0.6), transparent),
+      radial-gradient(1px 1px at 47% 9%, rgba(255, 255, 255, 0.55), transparent),
+      radial-gradient(1px 1px at 58% 41%, rgba(255, 255, 255, 0.45), transparent),
+      radial-gradient(1px 1px at 76% 66%, rgba(199, 166, 255, 0.5), transparent),
+      radial-gradient(1px 1px at 90% 82%, rgba(255, 255, 255, 0.55), transparent),
+      radial-gradient(1px 1px at 3% 37%, rgba(255, 255, 255, 0.45), transparent),
+      radial-gradient(1px 1px at 66% 5%, rgba(255, 255, 255, 0.5), transparent);
+    animation: twinkle 11s ease-in-out infinite reverse;
+  }
+
+  /* 입력 칸 기본 모양 (Tailwind 클래스로 언제든 덮어쓸 수 있다) */
+  input,
+  textarea,
+  select {
+    background-color: rgba(26, 22, 38, 0.8);
+    border: 1px solid rgba(165, 113, 255, 0.3);
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: #a571ff;
+    box-shadow: 0 0 0 3px rgba(165, 113, 255, 0.25);
+    background-color: rgba(26, 22, 38, 1);
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  /* 키보드(탭 키)로 이동할 때 위치가 보이게 */
+  :focus-visible {
+    outline: 2px solid #c7a6ff;
+    outline-offset: 2px;
+  }
+
+  /* 애니메이션을 꺼 둔 사용자는 존중한다 */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    body::before,
+    body::after {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .glow-text {
+    text-shadow: 0 0 12px rgba(165, 113, 255, 0.45),
+      0 0 28px rgba(165, 113, 255, 0.2);
+  }
+
+  .card {
+    background: linear-gradient(
+      135deg,
+      rgba(26, 22, 38, 0.75) 0%,
+      rgba(107, 29, 217, 0.12) 100%
+    );
+    border: 1px solid rgba(165, 113, 255, 0.22);
+    border-radius: 12px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  /* 누를 수 있는 카드에만 뜨는 효과 */
+  .card-interactive:hover,
+  .card-interactive:focus-visible {
+    border-color: rgba(165, 113, 255, 0.55);
+    box-shadow: 0 0 24px rgba(165, 113, 255, 0.18);
+    transform: translateY(-4px);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-weight: 600;
+    line-height: 1.25;
+    transition: box-shadow 0.25s ease, transform 0.25s ease,
+      background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .btn-primary {
+    @apply btn;
+    background: linear-gradient(135deg, #a571ff 0%, #7d39ff 100%);
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(165, 113, 255, 0.25);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 26px rgba(165, 113, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    @apply btn;
+    background-color: rgba(165, 113, 255, 0.1);
+    color: #c7a6ff;
+    border: 1px solid rgba(165, 113, 255, 0.6);
+  }
+
+  .btn-secondary:hover {
+    background-color: rgba(165, 113, 255, 0.2);
+    box-shadow: 0 0 18px rgba(165, 113, 255, 0.3);
+  }
+
+  .glow-button {
+    box-shadow: 0 0 14px rgba(165, 113, 255, 0.25);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 인쇄할 때 — 흰 종이에 검은 글씨로 나오게 한다 (수료증 인쇄용) */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* 별 배경은 인쇄하지 않는다 */
+  body::before,
+  body::after {
+    display: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-sheet,
+  .print-sheet * {
+    color: #000000 !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .print-sheet {
+    border: 1px solid #888888 !important;
+    backdrop-filter: none !important;
+  }
+}
