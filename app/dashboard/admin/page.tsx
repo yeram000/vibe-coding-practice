@@ -140,14 +140,17 @@ export default function AdminDashboard() {
               </p>
             </Link>
 
-            <div className="card opacity-60">
-              <h3 className="mb-1 text-lg font-bold text-gray-300">
-                교육 배정 <span className="text-xs text-gray-500">준비 중</span>
+            <Link
+              href="/dashboard/admin/assign"
+              className="card card-interactive group block no-underline"
+            >
+              <h3 className="mb-1 text-lg font-bold text-white transition group-hover:text-space-200">
+                교육 배정
               </h3>
-              <p className="text-sm text-gray-500">
-                다음 단계에서 만들 화면입니다
+              <p className="text-sm text-gray-400">
+                근로자를 고르고 교육과 기한을 정하세요
               </p>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

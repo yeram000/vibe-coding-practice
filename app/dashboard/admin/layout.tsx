@@ -7,7 +7,7 @@ import { useState } from 'react'
 const MENU = [
   { icon: '📊', label: '대시보드', href: '/dashboard/admin' },
   { icon: '👥', label: '근로자 관리', href: '/dashboard/admin/workers' },
-  { icon: '📚', label: '교육 배정', href: null },
+  { icon: '📚', label: '교육 배정', href: '/dashboard/admin/assign' },
   { icon: '✅', label: '수료 현황', href: null },
   { icon: '📄', label: '보고서', href: null },
   { icon: '⚙️', label: '설정', href: null },
